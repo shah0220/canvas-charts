@@ -22,20 +22,45 @@
     <script>
 
 
-            let data = [
-            {firstname:'Pooja', lastname: 'Shah' ,score:10},
-            {firstname:'Naina',  lastname: 'Panchal',score:20},
-            {firstname:'Kareena', lastname: 'Kapoor', score:80},
-            {firstname:'Ella', lastname: 'Patel', score:40},
-            {firstname:'Smit', lastname: 'Shah', score:50},
-            {firstname:'Nikhil',lastname: 'Israni', score:60}
-        ];
+        //     let data = [
+        //     {firstname:'Pooja', lastname: 'Shah' ,score:10},
+        //     {firstname:'Naina',  lastname: 'Panchal',score:20},
+        //     {firstname:'Kareena', lastname: 'Kapoor', score:80},
+        //     {firstname:'Ella', lastname: 'Patel', score:40},
+        //     {firstname:'Smit', lastname: 'Shah', score:50},
+        //     {firstname:'Nikhil',lastname: 'Israni', score:60}
+        // ];
         
         const randomHexColorCode = () => {
             return "#" + Math.random().toString(16).slice(2, 8)
         };
         
         document.addEventListener('DOMContentLoaded', ()=>{
+            fetch('./student.json')
+            .then(
+                function(response) {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                    response.status);
+                    return;
+                }
+
+                return response.json();
+                }
+            )
+            .then(function(students) {
+                    console.log(students);
+                pieChart(students)
+                })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+        });
+
+        
+
+    
+        function pieChart(data){
             let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext('2d');
             canvas.width = 600;
@@ -48,7 +73,7 @@
             let cx = canvas.width/2;
             let cy = canvas.height/2;
             
-                data.forEach( house => {
+            data.forEach( house => {
                 ctx.fillStyle = randomHexColorCode();
                 ctx.lineWidth = 1;
                 ctx.strokeStyle = '#000';
@@ -77,28 +102,7 @@
                 
                 startAngle = endAngle;
             })
-        });
-
-        fetch('./mad9022/first_assignment/student.json')
-  .then(
-    function(students) {
-      if (students.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          students.status);
-        return;
-      }
-
-      student.json().then(function(students) {
-        console.log(student);
-      });
-    }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error', err);
-  });
-
-    
-        
+        }
     </script>
 </body>
 </html>
