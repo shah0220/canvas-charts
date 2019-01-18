@@ -1,0 +1,43 @@
+[{
+    "id": 1,
+    "firstName": "Pooja",
+    "lastName": "Shah",
+    "label": "p1",
+    "score": 10
+  },
+  {
+    "id": 2,
+    "firstName": "Naina",
+    "lastName": "Panchal",
+    "label": "n1",
+    "score": 20
+  },
+  {
+    "id": 3,
+    "firstName": "Kareena",
+    "lastName": "Kapoor",
+    "label": "k1",
+    "score": 30
+  },
+  {
+    "id": 4,
+    "firstName": "Ella",
+    "lastName": "Patel",
+    "label": "e1",
+    "score": 40
+  },
+  {
+    "id": 5,
+    "firstName": "Smit",
+    "lastName": "Shah",
+    "label": "s1",
+    "score": 50
+  },
+  {
+    "id": 6,
+    "firstName": "Nikhil",
+    "lastName": "Israni",
+    "label": "n2",
+    "score": 60
+  }
+]

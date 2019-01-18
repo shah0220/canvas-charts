@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Charts</title>
+    <style>
+        #canvas{
+            border: 1px solid black;
+            width: 1000px;
+            height: auto;
+        }
+    </style>
+        
+    
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+
+
+            let data = [
+            {firstname:'Pooja', lastname: 'Shah' ,score:10},
+            {firstname:'Naina',  lastname: 'Panchal',score:20},
+            {firstname:'Kareena', lastname: 'Kapoor', score:80},
+            {firstname:'Ella', lastname: 'Patel', score:40},
+            {firstname:'Smit', lastname: 'Shah', score:50},
+            {firstname:'Nikhil',lastname: 'Israni', score:60}
+        ];
+        
+        const randomHexColorCode = () => {
+            return "#" + Math.random().toString(16).slice(2, 8)
+        };
+        
+        document.addEventListener('DOMContentLoaded', ()=>{
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            canvas.width = 600;
+            canvas.height = 400;
+            let total = data.reduce( (ttl, house) => {
+                return ttl + house.score
+            }, 0);
+            let startAngle = 0; 
+            let radius = 100;
+            let cx = canvas.width/2;
+            let cy = canvas.height/2;
+            
+                data.forEach( house => {
+                ctx.fillStyle = randomHexColorCode();
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = '#000';
+                ctx.beginPath();
+              
+                let endAngle = ((house.score / total) * Math.PI * 2) + startAngle;
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, radius, startAngle, endAngle, false);
+                ctx.lineTo(cx, cy);
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+                
+                
+                ctx.beginPath();
+                ctx.font = '20px Helvetica, Calibri';
+                ctx.textAlign = 'center';
+                ctx.fillStyle = 'rebeccapurple';
+                
+                let theta = (startAngle + endAngle) / 2;
+                let deltaY = Math.sin(theta) * 1.5 * radius;
+                let deltaX = Math.cos(theta) * 1.5 * radius;
+                
+                ctx.fillText(house.firstname, deltaX+cx, deltaY+cy);
+                ctx.closePath();
+                
+                startAngle = endAngle;
+            })
+        });
+
+        fetch('./mad9022/first_assignment/student.json')
+  .then(
+    function(students) {
+      if (students.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +
+          students.status);
+        return;
+      }
+
+      student.json().then(function(students) {
+        console.log(student);
+      });
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error', err);
+  });
+
+    
+        
+    </script>
+</body>
+</html>
