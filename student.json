@@ -2,42 +2,48 @@
     "id": 1,
     "firstName": "Pooja",
     "lastName": "Shah",
-    "label": "p1",
-    "score": 10
+    "score": 10,
+    "percentage": 0.9,
+    "color": "#0099cc"
   },
   {
     "id": 2,
     "firstName": "Naina",
     "lastName": "Panchal",
-    "label": "n1",
-    "score": 20
+    "score": 20,
+    "percentage": 5.8,
+    "color": "#000"
   },
   {
     "id": 3,
     "firstName": "Kareena",
     "lastName": "Kapoor",
-    "label": "k1",
-    "score": 30
+    "score": 30,
+    "percentage": 12.8,
+    "color": "rebeccapurple"
   },
   {
     "id": 4,
     "firstName": "Ella",
     "lastName": "Patel",
-    "label": "e1",
-    "score": 40
+    "score": 40,
+    "percentage": 17.2,
+    "color": "#0066ff"
   },
   {
     "id": 5,
     "firstName": "Smit",
     "lastName": "Shah",
-    "label": "s1",
-    "score": 50
+    "score": 50,
+    "percentage": 25.5,
+    "color": "#009933"
   },
   {
     "id": 6,
     "firstName": "Nikhil",
     "lastName": "Israni",
-    "label": "n2",
-    "score": 60
+    "score": 60,
+    "percentage": 37.8,
+    "color" : "#ff5050"
   }
 ]

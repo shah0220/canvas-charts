@@ -6,10 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Charts</title>
     <style>
+        #body{
+            margin: 0 auto;
+            text-align: center;
+        }
         #canvas{
             border: 1px solid black;
-            width: 1000px;
+            width: 90%;
             height: auto;
+            display: inline-block;
+            
+        }
+        #canvas-two{
+            border: 1px solid rgb(49, 41, 167);
+            width: 90%;
+            height: auto;
+            display: inline-block;
+            
         }
     </style>
         
@@ -18,18 +31,9 @@
 <body>
 
     <canvas id="canvas"></canvas>
+    <canvas id="canvas-two"></canvas>
 
     <script>
-
-
-        //     let data = [
-        //     {firstname:'Pooja', lastname: 'Shah' ,score:10},
-        //     {firstname:'Naina',  lastname: 'Panchal',score:20},
-        //     {firstname:'Kareena', lastname: 'Kapoor', score:80},
-        //     {firstname:'Ella', lastname: 'Patel', score:40},
-        //     {firstname:'Smit', lastname: 'Shah', score:50},
-        //     {firstname:'Nikhil',lastname: 'Israni', score:60}
-        // ];
         
         const randomHexColorCode = () => {
             return "#" + Math.random().toString(16).slice(2, 8)
@@ -51,6 +55,7 @@
             .then(function(students) {
                     console.log(students);
                 pieChart(students)
+                line(students)
                 })
             .catch(function(err) {
                 console.log(err.message);
@@ -63,23 +68,23 @@
         function pieChart(data){
             let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext('2d');
-            canvas.width = 600;
-            canvas.height = 400;
-            let total = data.reduce( (ttl, house) => {
-                return ttl + house.score
+            canvas.width = 800;
+            canvas.height = 600;
+            let total = data.reduce( (overall, main) => {
+                return overall + main.score
             }, 0);
             let startAngle = 0; 
             let radius = 100;
             let cx = canvas.width/2;
             let cy = canvas.height/2;
             
-            data.forEach( house => {
+            data.forEach( main => {
                 ctx.fillStyle = randomHexColorCode();
                 ctx.lineWidth = 1;
                 ctx.strokeStyle = '#000';
                 ctx.beginPath();
               
-                let endAngle = ((house.score / total) * Math.PI * 2) + startAngle;
+                let endAngle = ((main.score / total) * Math.PI * 2) + startAngle;
                 ctx.moveTo(cx, cy);
                 ctx.arc(cx, cy, radius, startAngle, endAngle, false);
                 ctx.lineTo(cx, cy);
@@ -97,12 +102,67 @@
                 let deltaY = Math.sin(theta) * 1.5 * radius;
                 let deltaX = Math.cos(theta) * 1.5 * radius;
                 
-                ctx.fillText(house.firstname, deltaX+cx, deltaY+cy);
+                ctx.fillText(main.firstName, deltaX+cx, deltaY+cy);
+                ctx.fillText(main.percentage + "%", deltaX+cx, deltaY+(cy+20));
                 ctx.closePath();
                 
                 startAngle = endAngle;
             })
+
+            line(data);
+
         }
+        function line(data){
+
+            let canvas = document.getElementById('canvas-two');
+            let ctx = canvas.getContext('2d');
+            canvas.width = 800;
+            canvas.height = 600;
+
+            let total = data.reduce( (overall, main) => {
+                return overall + main.score
+            }, 0);
+
+            var count = data.length;
+            
+            var offsetX = 30;
+            var offsetY = 300;
+            var spaceBetweenPoints = ((canvas.width - offsetX)/count);
+            var graphHeight = 300;
+            var x = 0 + offsetX;
+            
+            var y = offsetY - (graphHeight * (data[0]/total));
+            
+            ctx.moveTo(x, y);
+            ctx.beginPath();
+
+            for(var i=0; i<data.length; i++){
+            var pct = data[i].score / total;
+            y = offsetY - (graphHeight * (data[i].percentage/total));
+            ctx.strokeStyle = "#0066ff";
+            ctx.lineTo(x, y);
+            ctx.font = '15px Helvetica, Calibri';
+            ctx.fillStyle = "#009933";
+            var lbl = Math.round(pct * 100).toString();
+            if(pct <= .2){
+            ctx.fillText(lbl, x, y - 30);
+            }else{
+            ctx.fillText(lbl, x, y + 30);
+            }
+            x = x + spaceBetweenPoints;	
+        }
+        ctx.stroke();
+        ctx.strokeStyle = "#ff5050";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(offsetX, canvas.height-graphHeight);
+        ctx.lineTo(offsetX, graphHeight);
+        ctx.lineTo(canvas.width-offsetX, graphHeight);
+        ctx.stroke();  
+    
+        } 
+
+           
     </script>
 </body>
 </html>
