@@ -1,0 +1,1 @@
+The whole project is based on basics of html canvas sheets. With the use of practical charts we can get use to with the canvas basic concepts.It is just having basic functions related to the shapes of canvas sheets and also contains few concepts of trigonometry.
